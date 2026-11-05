@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Random Trivia Generator</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    text-align: center;
+    padding: 40px;
+}
+
+.container {
+    background: white;
+    max-width: 700px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+#question {
+    font-size: 1.3em;
+    margin: 20px 0;
+}
+
+#answer {
+    color: green;
+    font-weight: bold;
+    margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Random Trivia Challenge</h1>
+
+    <p id="progress">Question 0 / 100</p>
+
+    <div id="question">
+        Click Start
+    </div>
+
+    <div id="answer"></div>
+
+    <button onclick="showAnswer()">
+        Show Answer
+    </button>
+
+    <button onclick="nextQuestion()">
+        Next Question
+    </button>
+
+    <hr>
+
+    <p>Score: <span id="score">0</span></p>
+
+    <button onclick="correctAnswer()">
+        I Got It Right
+    </button>
+</div>
+
+<script>
+
+const questions = [const questions = [
+{question:"What is the capital of Australia?",answer:"Canberra"},
+{question:"Which planet is known as the Red Planet?",answer:"Mars"},
+{question:"Who painted the Mona Lisa?",answer:"Leonardo da Vinci"},
+{question:"What is the largest ocean on Earth?",answer:"Pacific Ocean"},
+{question:"How many bones are in the adult human body?",answer:"206"},
+{question:"What gas do plants absorb from the atmosphere?",answer:"Carbon dioxide"},
+{question:"What is the currency of Japan?",answer:"Yen"},
+{question:"Who wrote 'Romeo and Juliet'?",answer:"William Shakespeare"},
+{question:"What is the chemical symbol for gold?",answer:"Au"},
+{question:"How many continents are there?",answer:"7"},
+{question:"What is the largest desert in the world?",answer:"Antarctica"},
+{question:"Who developed the theory of relativity?",answer:"Albert Einstein"},
+{question:"Which country gifted the Statue of Liberty to the United States?",answer:"France"},
+{question:"What is the hardest natural substance on Earth?",answer:"Diamond"},
+{question:"Which element has the atomic number 1?",answer:"Hydrogen"},
+{question:"What is the tallest mountain in Africa?",answer:"Mount Kilimanjaro"},
+{question:"Who was the first President of the United States?",answer:"George Washington"},
+{question:"Which ocean lies between Africa and Australia?",answer:"Indian Ocean"},
+{question:"What is the smallest prime number?",answer:"2"},
+{question:"What blood type is known as the universal donor?",answer:"O Negative"},
+{question:"Which country invented paper?",answer:"China"},
+{question:"Who painted The Starry Night?",answer:"Vincent van Gogh"},
+{question:"What is the capital city of Canada?",answer:"Ottawa"},
+{question:"What is the main language spoken in Brazil?",answer:"Portuguese"},
+{question:"Which organ pumps blood throughout the human body?",answer:"Heart"},
+{question:"What is the freezing point of water in Celsius?",answer:"0"},
+{question:"What is the largest mammal on Earth?",answer:"Blue Whale"},
+{question:"Who discovered penicillin?",answer:"Alexander Fleming"},
+{question:"Which planet has the most moons?",answer:"Saturn"},
+{question:"What is the longest river in South America?",answer:"Amazon River"},
+{question:"How many sides does a hexagon have?",answer:"6"},
+{question:"Who wrote The Odyssey?",answer:"Homer"},
+{question:"What is the chemical symbol for sodium?",answer:"Na"},
+{question:"What is the capital of South Korea?",answer:"Seoul"},
+{question:"Which U.S. state is known as the Sunshine State?",answer:"Florida"},
+{question:"What is the square root of 144?",answer:"12"},
+{question:"Which scientist formulated the laws of motion?",answer:"Isaac Newton"},
+{question:"What is the largest island in the world?",answer:"Greenland"},
+{question:"What year did World War II end?",answer:"1945"},
+{question:"What is the rarest blood type?",answer:"AB Negative"},
+{question:"Who was the first person to walk on the moon?",answer:"Neil Armstrong"},
+{question:"What is the capital of Egypt?",answer:"Cairo"},
+{question:"Which ocean is the smallest?",answer:"Arctic Ocean"},
+{question:"Which planet is closest to the Sun?",answer:"Mercury"},
+{question:"How many strings does a standard violin have?",answer:"4"},
+{question:"What is the largest organ in the human body?",answer:"Skin"},
+{question:"Who wrote To Kill a Mockingbird?",answer:"Harper Lee"},
+{question:"Which country is home to the Great Barrier Reef?",answer:"Australia"},
+{question:"What is the chemical symbol for silver?",answer:"Ag"},
+{question:"How many players are on a soccer team on the field?",answer:"11"},
+{question:"What is the speed of light approximately?",answer:"300,000 km/s"},
+{question:"Which Shakespeare play features Hamlet?",answer:"Hamlet"},
+{question:"Which country has the most people?",answer:"India"},
+{question:"What is the largest planet in our solar system?",answer:"Jupiter"},
+{question:"Who painted The Last Supper?",answer:"Leonardo da Vinci"},
+{question:"What is the capital of Argentina?",answer:"Buenos Aires"},
+{question:"Which bird is often associated with delivering babies in folklore?",answer:"Stork"},
+{question:"What does DNA stand for?",answer:"Deoxyribonucleic Acid"},
+{question:"Which instrument has 88 keys?",answer:"Piano"},
+{question:"Who was the leader of Germany during World War II?",answer:"Adolf Hitler"},
+{question:"What is the capital of Thailand?",answer:"Bangkok"},
+{question:"How many degrees are in a circle?",answer:"360"},
+{question:"What is the largest lake in Africa?",answer:"Lake Victoria"},
+{question:"What is the main ingredient in guacamole?",answer:"Avocado"},
+{question:"What is the capital of New Zealand?",answer:"Wellington"},
+{question:"Which country is shaped like a boot?",answer:"Italy"},
+{question:"Who invented the telephone?",answer:"Alexander Graham Bell"},
+{question:"Which planet is famous for its rings?",answer:"Saturn"},
+{question:"What is the smallest U.S. state?",answer:"Rhode Island"},
+{question:"Which element is represented by the symbol O?",answer:"Oxygen"},
+{question:"What is the capital of Norway?",answer:"Oslo"},
+{question:"How many teeth does a typical adult have?",answer:"32"},
+{question:"What is the largest volcano in the solar system?",answer:"Olympus Mons"},
+{question:"Who wrote The Great Gatsby?",answer:"F. Scott Fitzgerald"},
+{question:"Which country contains the city of Istanbul?",answer:"Turkey"},
+{question:"What is the currency of the United Kingdom?",answer:"Pound Sterling"},
+{question:"Which animal is known as the King of the Jungle?",answer:"Lion"},
+{question:"How many players are on a baseball team on the field?",answer:"9"},
+{question:"What does CPU stand for?",answer:"Central Processing Unit"},
+{question:"Which country hosted the 2016 Summer Olympics?",answer:"Brazil"},
+{question:"Who painted Girl with a Pearl Earring?",answer:"Johannes Vermeer"},
+{question:"What is the world's deepest ocean trench?",answer:"Mariana Trench"},
+{question:"What is the capital of Sweden?",answer:"Stockholm"},
+{question:"How many planets are officially recognized in the solar system?",answer:"8"},
+{question:"What is the largest country by area?",answer:"Russia"},
+{question:"Which scientist proposed the three laws of planetary motion?",answer:"Johannes Kepler"},
+{question:"What is the capital of Vietnam?",answer:"Hanoi"},
+{question:"Who wrote 1984?",answer:"George Orwell"},
+{question:"Which metal is liquid at room temperature?",answer:"Mercury"},
+{question:"What is the national sport of Japan?",answer:"Sumo Wrestling"},
+{question:"Which city hosted the first modern Olympics?",answer:"Athens"},
+{question:"What is the capital of Kenya?",answer:"Nairobi"},
+{question:"What is the powerhouse of the cell?",answer:"Mitochondria"},
+{question:"Who composed The Four Seasons?",answer:"Antonio Vivaldi"},
+{question:"Which country is famous for the pyramids of Giza?",answer:"Egypt"},
+{question:"What is the largest moon of Saturn?",answer:"Titan"},
+{question:"Which gas makes up most of Earth's atmosphere?",answer:"Nitrogen"},
+{question:"What is the capital of Switzerland?",answer:"Bern"},
+{question:"Who discovered gravity after observing a falling apple?",answer:"Isaac Newton"} 
+];
+
+let availableQuestions = [...questions];
+let currentQuestion = null;
+let score = 0;
+let questionsSeen = 0;
+
+function nextQuestion() {
+
+    if (availableQuestions.length === 0) {
+        availableQuestions = [...questions];
+        alert("You completed all questions! Starting over.");
+    }
+
+    const randomIndex =
+        Math.floor(Math.random() * availableQuestions.length);
+
+    currentQuestion =
+        availableQuestions.splice(randomIndex,1)[0];
+
+    questionsSeen++;
+
+    document.getElementById("question").textContent =
+        currentQuestion.question;
+
+    document.getElementById("answer").textContent = "";
+
+    document.getElementById("progress").textContent =
+        `Question ${questionsSeen}`;
+}
+
+function showAnswer() {
+    if(currentQuestion){
+        document.getElementById("answer").textContent =
+            currentQuestion.answer;
+    }
+}
+
+function correctAnswer(){
+    score++;
+
+    document.getElementById("score").textContent =
+        score;
+}
+
+</script>
+
+</body>
+</html>
