@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Random Trivia Generator</title>
 
 <style>
@@ -74,7 +73,7 @@ button {
 
 <script>
 
-const questions = [const questions = [
+const questions = [
 {question:"What is the capital of Australia?",answer:"Canberra"},
 {question:"Which planet is known as the Red Planet?",answer:"Mars"},
 {question:"Who painted the Mona Lisa?",answer:"Leonardo da Vinci"},
@@ -218,6 +217,8 @@ function correctAnswer(){
     document.getElementById("score").textContent =
         score;
 }
+
+nextQuestion();
 
 </script>
 
